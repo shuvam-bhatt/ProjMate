@@ -1,0 +1,19 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Puzzle Piece Icon (representing project collaboration) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M70,38L70,28C70,25.25 67.75,23 65,23L45,23C42.25,23 40,25.25 40,28L40,38C40,40.75 37.75,43 35,43L25,43C22.25,43 20,45.25 20,48L20,58C20,60.75 22.25,63 25,63L35,63C37.75,63 40,65.25 40,68L40,78C40,80.75 42.25,83 45,83L65,83C67.75,83 70,80.75 70,78L70,68C70,65.25 72.25,63 75,63L85,63C87.75,63 90,60.75 90,58L90,48C90,45.25 87.75,43 85,43L75,43C72.25,43 70,40.75 70,38Z" />
+
+    <!-- Connection Lines (representing networking) -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M35,33L75,73M35,73L75,33" />
+</vector>

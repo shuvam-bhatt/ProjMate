@@ -1,0 +1,89 @@
+package com.example.projmate;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
+import com.example.projmate.auth.LoginActivity;
+import com.example.projmate.fragments.DiscoverFragment;
+import com.example.projmate.fragments.MessagesFragment;
+import com.example.projmate.fragments.ProfileFragment;
+import com.example.projmate.util.DemoDataUtil;
+import com.example.projmate.util.LocalStorageUtil;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+
+    private BottomNavigationView bottomNavigationView;
+    private LocalStorageUtil storageUtil;
+
+    private static final String TAG = "MainActivity";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        storageUtil = LocalStorageUtil.getInstance(this);
+        
+        // Initialize demo data first
+        initializeDemoData();
+        
+        // Check if user is logged in
+        if (storageUtil.getCurrentUser() == null) {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+            return;
+        }
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+
+        // Load default fragment
+        loadFragment(new DiscoverFragment());
+    }
+    
+    /**
+     * Initialize demo data for the app
+     */
+    private void initializeDemoData() {
+        try {
+            boolean created = DemoDataUtil.createDemoData(this);
+            Log.d(TAG, "Demo data initialization: " + (created ? "created new data" : "using existing data"));
+        } catch (Exception e) {
+            Log.e(TAG, "Error initializing demo data: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Fragment fragment = null;
+        
+        int itemId = item.getItemId();
+        if (itemId == R.id.nav_discover) {
+            fragment = new DiscoverFragment();
+        } else if (itemId == R.id.nav_messages) {
+            fragment = new MessagesFragment();
+        } else if (itemId == R.id.nav_profile) {
+            fragment = new ProfileFragment();
+        }
+        
+        return loadFragment(fragment);
+    }
+
+    private boolean loadFragment(Fragment fragment) {
+        if (fragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .commit();
+            return true;
+        }
+        return false;
+    }
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Force light mode for all activities -->
+    <style name="ForceLightMode" parent="Theme.AppCompat.Light">
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+    </style>
+    
+    <!-- Message button style -->
+    <style name="MessageButton" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/blue_500</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:padding">8dp</item>
+    </style>
+    
+
+</resources>
